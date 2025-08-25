@@ -54,6 +54,13 @@ stages:
         - gitee-docker-android
     steps:
       - step: shell@sh
+        displayName: 设置Gradle Wrapper权限
+        script: |
+          echo "========== 设置Gradle Wrapper权限 =========="
+          chmod +x gradlew
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+
+      - step: shell@sh
         displayName: 清理和初始化
         script: |
           echo "========== 清理项目 =========="

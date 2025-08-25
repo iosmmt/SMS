@@ -70,9 +70,6 @@ fastlane/readme.md
 # Version control
 .vagrant/
 
-# remove this if you don't need to ignore Gradle wrapper jar file
-gradle/wrapper/gradle-wrapper.jar
-
 # User-specific configurations
 .settings/
 
