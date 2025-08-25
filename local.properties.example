@@ -1,0 +1,18 @@
+## 本地开发配置文件模板
+## 复制此文件为local.properties并根据需要修改配置
+
+## SDK路径配置（可选，通常由Android Studio自动配置）
+# sdk.dir=/path/to/android/sdk
+
+## 签名配置
+## Release版本签名配置
+STORE_FILE=../src/main/keystore/release.keystore
+STORE_PASSWORD=your_store_password
+KEY_ALIAS=your_key_alias
+KEY_PASSWORD=your_key_password
+
+## 调试版本签名配置（可选，默认使用调试密钥）
+# DEBUG_STORE_FILE=../src/main/keystore/debug.keystore
+# DEBUG_STORE_PASSWORD=android
+# DEBUG_KEY_ALIAS=androiddebugkey
+# DEBUG_KEY_PASSWORD=android

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="info_types">
+        <item>取件码</item>
+        <item>快递公司</item>
+        <item>地址</item>
+        <item>驿站</item>
+    </string-array>
+</resources>

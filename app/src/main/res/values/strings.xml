@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">取件码助手</string>
+    <string name="select_info_type">选择信息类型</string>
+    
+    <!-- 权限相关字符串 -->
+    <string name="permission_required">需要权限</string>
+    <string name="permission_rationale">应用需要短信和通知权限来自动读取取件码并发送提醒通知</string>
+    <string name="grant_permission">授予权限</string>
+    <string name="skip">跳过</string>
+    <string name="permission_denied_message">权限被拒绝，部分功能可能无法正常使用</string>
+    <string name="permission_granted_message">权限已授予，可以正常使用应用功能</string>
+    
+    <!-- 功能相关字符串 -->
+    <string name="pickup_history">取件历史</string>
+    <string name="statistics">统计数据</string>
+    <string name="copy_code">复制取件码</string>
+    <string name="call_courier">联系快递员</string>
+    <string name="clear_history">清除历史</string>
+</resources>
