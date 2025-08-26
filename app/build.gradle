@@ -33,14 +33,14 @@ android {
                 keyPassword keystoreProperties['KEY_PASSWORD']
             } else {
                 // 如果没有配置签名信息，使用调试配置
-                storeFile file('../src/main/keystore/debug.keystore')
+                storeFile file('src/main/keystore/debug.keystore')
                 storePassword 'android'
                 keyAlias 'androiddebugkey'
                 keyPassword 'android'
             }
         }
         debug {
-            storeFile file('../src/main/keystore/debug.keystore')
+            storeFile file('src/main/keystore/debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
