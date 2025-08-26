@@ -1,4 +1,4 @@
-name: Android Build
+name: Android CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build APK
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
@@ -25,19 +25,19 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Grant execute permission for gradle wrapper
-        run: chmod +x gradle/wrapper/gradle-wrapper.jar
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v3
 
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Run tests
+      - name: Run unit tests
         run: ./gradlew test
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Build Release APK
+      - name: Build Release APK (unsigned)
         run: ./gradlew assembleRelease
 
       - name: Upload Debug APK
@@ -49,8 +49,8 @@ jobs:
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: release-apk-unsigned
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
 
       - name: Upload build reports
         uses: actions/upload-artifact@v4

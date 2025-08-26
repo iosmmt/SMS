@@ -55,33 +55,52 @@ gradlew.bat build
 ./gradlew installDebug
 ```
 
-## Gitee自动构建
+## GitHub Actions自动构建
 
-本项目已配置Gitee CI/CD自动构建功能：
+本项目已配置GitHub Actions自动构建功能：
 
 1. 每当代码推送到`master`或`main`分支时，会自动触发构建流程
 2. 构建包括Debug和Release版本的APK
-3. 构建产物会自动发布到Gitee Releases
+3. 构建产物会作为Artifacts保存，可下载测试
 
 ### 配置说明
 
-- CI/CD配置文件位于：`.workflow/android-build.yml`
-- 构建环境：Gitee提供的Android构建环境
+- CI/CD配置文件位于：`.github/workflows/android-build.yml`
+- 发布构建配置文件位于：`.github/workflows/release-build.yml`
+- 构建环境：Ubuntu latest
 - 构建工具：Gradle
-- JDK版本：根据Gitee环境自动选择
-- Android SDK：根据Gitee环境自动配置
+- JDK版本：11
+- Android SDK：根据项目配置自动选择
 
 ### 构建步骤
 
 1. 环境检查和依赖下载
 2. 项目编译和单元测试
 3. Debug APK构建
-4. Release APK构建（包含签名配置）
-5. 构建产物发布
+4. Release APK构建（未签名）
+5. 构建产物上传为Artifacts
 
-## CI/CD测试记录
+### 发布构建
 
-- 2025-08-25: 首次测试CI/CD流水线，验证自动构建功能
+要创建签名的Release APK并发布：
+
+1. 创建新的Git标签（如`v1.0.0`）
+2. 推送标签到GitHub
+3. GitHub Actions会自动触发发布构建流程
+4. 需要预先配置以下GitHub Secrets：
+   - `KEYSTORE_FILE`: Base64编码的keystore文件
+   - `KEYSTORE_PASSWORD`: keystore密码
+   - `KEY_ALIAS`: 密钥别名
+   - `KEY_PASSWORD`: 密钥密码
+
+生成Base64编码的keystore文件：
+```bash
+# Linux/Mac
+base64 -i your-release-key.keystore -o keystore.base64
+
+# Windows (PowerShell)
+certutil -encode your-release-key.keystore keystore.base64
+```
 
 ## 使用说明
 
