@@ -7,9 +7,9 @@
 ## 签名配置
 ## Release版本签名配置
 STORE_FILE=../src/main/keystore/release.keystore
-STORE_PASSWORD=your_store_password
-KEY_ALIAS=your_key_alias
-KEY_PASSWORD=your_key_password
+STORE_PASSWORD=123456
+KEY_ALIAS=release
+KEY_PASSWORD=123456
 
 ## 调试版本签名配置（可选，默认使用调试密钥）
 # DEBUG_STORE_FILE=../src/main/keystore/debug.keystore

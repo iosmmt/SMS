@@ -52,7 +52,7 @@ android {
                 keyAlias keystoreProperties['KEY_ALIAS']
                 keyPassword keystoreProperties['KEY_PASSWORD']
             } else {
-                // 如果没有配置签名信息，使用调试配置作为后备
+                // 检查项目中的调试密钥库是否存在，作为后备
                 def debugKeystoreFile = file('src/main/keystore/debug.keystore')
                 if (debugKeystoreFile.exists()) {
                     storeFile debugKeystoreFile
@@ -60,6 +60,8 @@ android {
                     keyAlias 'androiddebugkey'
                     keyPassword 'android'
                 }
+                // 如果没有配置签名信息且没有调试密钥库，不设置签名配置
+                // 这样可以避免"missing required property"错误
             }
         }
         debug {
@@ -88,7 +90,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            // 只有当签名配置有效时才设置
+            def releaseKeystoreFile = file('src/main/keystore/debug.keystore')
+            if (keystoreProperties.containsKey('STORE_FILE') || releaseKeystoreFile.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
         debug {
             // 只有当签名配置存在时才设置

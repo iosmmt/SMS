@@ -47,6 +47,25 @@
 gradlew.bat build
 ```
 
+## 生成签名密钥
+
+为了构建Release版本的APK，您需要生成签名密钥：
+
+1. 生成调试密钥库：
+   ```bash
+   keytool -genkey -v -keystore app/src/main/keystore/debug.keystore -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US" -noprompt
+   ```
+
+2. 生成发布密钥库：
+   ```bash
+   keytool -genkey -v -keystore app/src/main/keystore/release.keystore -alias releasekey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Release Key,O=Android,C=US" -noprompt
+   ```
+
+3. 配置[local.properties](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties)文件：
+   复制[local.properties.example](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties.example)文件为[local.properties](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties)，并根据需要修改签名配置。
+
+更多详细信息请查看[GENERATE_KEYSTORE.md](file:///c%3A/Users/Administrator/Downloads/2/2/GENERATE_KEYSTORE.md)文件。
+
 ## 安装部署
 
 可以通过以下命令安装到设备：
