@@ -45,8 +45,10 @@ libraries/
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
-*.jks
-*.keystore
+# *.jks
+# *.keystore
+# But allow debug keystore
+!app/src/main/keystore/debug.keystore
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
