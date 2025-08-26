@@ -9,6 +9,26 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+// 清理资源目录中的备份文件
+task cleanResourceBackups {
+    doLast {
+        def mipmapAnyDpiDir = file('src/main/res/mipmap-anydpi')
+        if (mipmapAnyDpiDir.exists()) {
+            mipmapAnyDpiDir.eachFileMatch(~/.*\.bak/) { file ->
+                println "Deleting backup file: ${file.name}"
+                file.delete()
+            }
+        }
+    }
+}
+
+// 在资源合并之前执行清理任务
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('merge') && task.name.endsWith('Resources')) {
+        task.dependsOn cleanResourceBackups
+    }
+}
+
 android {
     namespace 'com.example.qjm'
     compileSdk 34  // 更新为API级别34以支持Android 14
