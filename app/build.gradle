@@ -63,7 +63,7 @@ android {
             }
         }
         debug {
-            // 检查调试密钥库是否存在
+            // 检查项目中的调试密钥库是否存在
             def debugKeystoreFile = file('src/main/keystore/debug.keystore')
             if (debugKeystoreFile.exists()) {
                 storeFile debugKeystoreFile
@@ -71,11 +71,15 @@ android {
                 keyAlias 'androiddebugkey'
                 keyPassword 'android'
             } else {
-                // 如果调试密钥库不存在，使用Android默认的调试密钥库
-                storeFile file(System.getProperty("user.home") + "/.android/debug.keystore")
-                storePassword 'android'
-                keyAlias 'androiddebugkey'
-                keyPassword 'android'
+                // 检查系统默认的调试密钥库是否存在
+                def systemDebugKeystoreFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+                if (systemDebugKeystoreFile.exists()) {
+                    storeFile systemDebugKeystoreFile
+                    storePassword 'android'
+                    keyAlias 'androiddebugkey'
+                    keyPassword 'android'
+                }
+                // 如果都不存在，不设置签名配置，使用Android默认的调试签名
             }
         }
     }
@@ -87,7 +91,12 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.debug
+            // 只有当签名配置存在时才设置
+            def debugKeystoreFile = file('src/main/keystore/debug.keystore')
+            def systemDebugKeystoreFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+            if (debugKeystoreFile.exists() || systemDebugKeystoreFile.exists()) {
+                signingConfig signingConfigs.debug
+            }
             // 在调试版本中禁用PNG crunching以避免资源编译问题
             crunchPngs false
         }
