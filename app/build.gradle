@@ -2,41 +2,14 @@ plugins {
     id 'com.android.application'
 }
 
-// 读取local.properties文件中的签名配置
-def keystorePropertiesFile = rootProject.file("local.properties")
-def keystoreProperties = new Properties()
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
-
-// 清理资源目录中的备份文件
-task cleanResourceBackups {
-    doLast {
-        def mipmapAnyDpiDir = file('src/main/res/mipmap-anydpi')
-        if (mipmapAnyDpiDir.exists()) {
-            mipmapAnyDpiDir.eachFileMatch(~/.*\.bak/) { file ->
-                println "Deleting backup file: ${file.name}"
-                file.delete()
-            }
-        }
-    }
-}
-
-// 在资源合并之前执行清理任务
-tasks.whenTaskAdded { task ->
-    if (task.name.startsWith('merge') && task.name.endsWith('Resources')) {
-        task.dependsOn cleanResourceBackups
-    }
-}
-
 android {
     namespace 'com.example.qjm'
-    compileSdk 34  // 更新为API级别34以支持Android 14
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.qjm"
         minSdk 24
-        targetSdk 34  // 更新为API级别34以支持Android 14
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -45,17 +18,7 @@ android {
 
     signingConfigs {
         release {
-            // 从local.properties文件读取签名配置
-            if (keystoreProperties.containsKey('STORE_FILE') && 
-                keystoreProperties.containsKey('STORE_PASSWORD') &&
-                keystoreProperties.containsKey('KEY_ALIAS') &&
-                keystoreProperties.containsKey('KEY_PASSWORD')) {
-                storeFile file(keystoreProperties['STORE_FILE'])
-                storePassword keystoreProperties['STORE_PASSWORD']
-                keyAlias keystoreProperties['KEY_ALIAS']
-                keyPassword keystoreProperties['KEY_PASSWORD']
-            }
-            // 如果没有配置签名信息，不设置签名配置，使用默认机制
+            // 简化签名配置
         }
         debug {
             // 使用Android默认的调试签名机制
@@ -66,13 +29,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            // 只有当签名配置有效时才设置
-            if (keystoreProperties.containsKey('STORE_FILE') && 
-                keystoreProperties.containsKey('STORE_PASSWORD') &&
-                keystoreProperties.containsKey('KEY_ALIAS') &&
-                keystoreProperties.containsKey('KEY_PASSWORD')) {
-                signingConfig signingConfigs.release
-            }
         }
         debug {
             // 使用默认的调试签名配置
@@ -95,7 +51,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
