@@ -215,12 +215,8 @@ public class MainActivity extends AppCompatActivity implements PickupInfoAdapter
 
             // 注册广播接收器
             IntentFilter filter = new IntentFilter("com.example.qjm.UPDATE_PICKUP_LIST");
-            // Android 14 (API 34)及以上版本需要指定导出状态标志
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(updateReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-            } else {
-                registerReceiver(updateReceiver, filter);
-            }
+            // 使用ContextCompat.registerReceiver确保在所有Android版本中都能正确注册
+            ContextCompat.registerReceiver(this, updateReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
         } catch (Exception e) {
             Log.e(TAG, "onCreate: 创建Activity时发生异常", e);
             Toast.makeText(this, "应用初始化失败", Toast.LENGTH_LONG).show();
