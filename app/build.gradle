@@ -46,10 +46,16 @@ android {
 
     signingConfigs {
         release {
-            // 简化签名配置
+            storeFile file('../src/main/keystore/release.keystore')
+            storePassword '123456'
+            keyAlias 'release'
+            keyPassword '123456'
         }
         debug {
-            // 使用Android默认的调试签名机制
+            storeFile file('../src/main/keystore/debug.keystore')
+            storePassword '123456'
+            keyAlias 'debug'
+            keyPassword '123456'
         }
     }
 
@@ -57,6 +63,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             // 使用默认的调试签名配置

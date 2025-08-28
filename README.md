@@ -47,6 +47,15 @@
 gradlew.bat build
 ```
 
+### 使用构建脚本
+
+项目中提供了预定义的构建脚本，可以直接运行：
+
+- [build_apk.bat](file:///c%3A/Users/Administrator/Downloads/2/2/build_apk.bat)：构建Debug版本APK
+- [build_release_apk.bat](file:///c%3A/Users/Administrator/Downloads/2/2/build_release_apk.bat)：构建Release版本APK
+
+只需双击相应的批处理文件即可开始构建。
+
 ## 生成签名密钥
 
 为了构建Release版本的APK，您需要生成签名密钥：
