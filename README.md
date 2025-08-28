@@ -102,6 +102,15 @@ GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无
 3. 权限问题导致应用无法正常初始化
 4. 设备兼容性问题
 
+## Binary XML Error 故障排除
+
+如果应用在启动时出现初始化失败，错误信息提示与Binary XML文件相关，请参考[BINARY_XML_ERROR_TROUBLESHOOTING.md](file:///c%3A/Users/Administrator/Downloads/2/2/BINARY_XML_ERROR_TROUBLESHOOTING.md)文件中的详细故障排除指南。
+
+常见问题包括：
+1. 资源文件问题
+2. 样式和主题问题
+3. 依赖库问题
+
 ## GitHub Actions自动构建
 
 本项目已配置GitHub Actions自动构建功能：

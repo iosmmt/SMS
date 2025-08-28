@@ -43,7 +43,7 @@
             android:text="添加规则"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/colorPrimary"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon" />
 
         <Button
             android:id="@+id/historyButton"
@@ -54,7 +54,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/colorPrimary"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon" />
 
         <Button
             android:id="@+id/statisticsButton"
@@ -64,7 +64,7 @@
             android:text="统计数据"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/colorAccent"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon" />
 
     </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:text="搜索"
             android:layout_marginStart="8dp"
             android:backgroundTint="@color/colorPrimary"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon" />
 
     </LinearLayout>
 
