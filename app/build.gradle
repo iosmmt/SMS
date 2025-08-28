@@ -46,13 +46,13 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('../src/main/keystore/release.keystore')
+            storeFile file('src/main/keystore/release.keystore')
             storePassword '123456'
             keyAlias 'release'
             keyPassword '123456'
         }
         debug {
-            storeFile file('../src/main/keystore/debug.keystore')
+            storeFile file('src/main/keystore/debug.keystore')
             storePassword '123456'
             keyAlias 'debug'
             keyPassword '123456'
