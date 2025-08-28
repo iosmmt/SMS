@@ -92,6 +92,16 @@ GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无
 ./gradlew installDebug
 ```
 
+## 应用启动问题故障排除
+
+如果应用安装后无法正常启动并自动退回到桌面，请参考[APP_LAUNCH_TROUBLESHOOTING.md](file:///c%3A/Users/Administrator/Downloads/2/2/APP_LAUNCH_TROUBLESHOOTING.md)文件中的详细故障排除指南。
+
+常见问题包括：
+1. 签名问题导致APK不完整或损坏
+2. 应用启动时发生异常导致闪退
+3. 权限问题导致应用无法正常初始化
+4. 设备兼容性问题
+
 ## GitHub Actions自动构建
 
 本项目已配置GitHub Actions自动构建功能：
@@ -106,7 +116,7 @@ GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无
 - 发布构建配置文件位于：`.github/workflows/release-build.yml`
 - 构建环境：Ubuntu latest
 - 构建工具：Gradle
-- JDK版本：11
+- JDK版本：17
 - Android SDK：根据项目配置自动选择
 
 ### 构建步骤
@@ -114,7 +124,7 @@ GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无
 1. 环境检查和依赖下载
 2. 项目编译和单元测试
 3. Debug APK构建
-4. Release APK构建（未签名）
+4. Release APK构建
 5. 构建产物上传为Artifacts
 
 ### 发布构建
@@ -127,21 +137,3 @@ GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无
 4. 需要预先配置以下GitHub Secrets：
    - `KEYSTORE_FILE`: Base64编码的keystore文件
    - `KEYSTORE_PASSWORD`: keystore密码
-   - `KEY_ALIAS`: 密钥别名
-   - `KEY_PASSWORD`: 密钥密码
-
-生成Base64编码的keystore文件：
-```bash
-# Linux/Mac
-base64 -i your-release-key.keystore -o keystore.base64
-
-# Windows (PowerShell)
-certutil -encode your-release-key.keystore keystore.base64
-```
-
-## 使用说明
-
-1. 安装应用后，授予必要的短信和通知权限
-2. 应用会自动监听短信并提取取件信息
-3. 可以通过添加规则功能自定义取件码提取规则
-4. 支持标记取件状态、删除记录、查看历史等功能

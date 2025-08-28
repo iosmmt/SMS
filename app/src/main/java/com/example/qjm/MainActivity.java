@@ -80,10 +80,11 @@ public class MainActivity extends AppCompatActivity implements PickupInfoAdapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: 开始创建Activity");
-        setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: 已设置布局");
-
+        
         try {
+            setContentView(R.layout.activity_main);
+            Log.d(TAG, "onCreate: 已设置布局");
+
             // 初始化数据库
             Log.d(TAG, "onCreate: 开始初始化数据库");
             db = PickupInfoDatabase.getInstance(this);
@@ -219,7 +220,9 @@ public class MainActivity extends AppCompatActivity implements PickupInfoAdapter
             ContextCompat.registerReceiver(this, updateReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
         } catch (Exception e) {
             Log.e(TAG, "onCreate: 创建Activity时发生异常", e);
-            Toast.makeText(this, "应用初始化失败", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "应用初始化失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            // 如果发生严重错误，关闭应用
+            finish();
         }
     }
 
@@ -283,23 +286,23 @@ public class MainActivity extends AppCompatActivity implements PickupInfoAdapter
             List<String> permissionsNeeded = new ArrayList<>();
             
             // 检查短信权限
-            if (checkSelfPermission(android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
                 permissionsNeeded.add(android.Manifest.permission.READ_SMS);
             }
             
-            if (checkSelfPermission(android.Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
                 permissionsNeeded.add(android.Manifest.permission.RECEIVE_SMS);
             }
             
             // 检查通知权限 (Android 13+)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                     permissionsNeeded.add(android.Manifest.permission.POST_NOTIFICATIONS);
                 }
             }
             
             // 检查电话权限
-            if (checkSelfPermission(android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 permissionsNeeded.add(android.Manifest.permission.CALL_PHONE);
             }
             
