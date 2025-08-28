@@ -30,6 +30,8 @@ jobs:
       - name: Generate release keystore
         run: |
           mkdir -p ${{ github.workspace }}/app/src/main/keystore
+          # 删除已存在的密钥库文件以避免冲突
+          rm -f ${{ github.workspace }}/app/src/main/keystore/release.keystore
           keytool -genkey -v -keystore ${{ github.workspace }}/app/src/main/keystore/release.keystore -storepass 123456 -alias release -keypass 123456 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Release,O=Android,C=US" -storetype pkcs12
 
       - name: Build Release APK
