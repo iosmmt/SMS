@@ -60,20 +60,29 @@ gradlew.bat build
 
 为了构建Release版本的APK，您需要生成签名密钥：
 
+### 使用自动生成脚本
+项目提供了自动生成密钥库的脚本：
+- Windows: [generate_keystore.bat](file:///c%3A/Users/Administrator/Downloads/2/2/generate_keystore.bat)
+
+只需双击运行该脚本，它会自动生成所需的密钥库文件。
+
+### 手动生成密钥库
+您也可以手动使用以下命令生成密钥库：
+
 1. 生成调试密钥库：
    ```bash
-   keytool -genkey -v -keystore app/src/main/keystore/debug.keystore -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US" -noprompt
+   keytool -genkey -v -keystore app/src/main/keystore/debug.keystore -storepass 123456 -alias debug -keypass 123456 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" -storetype pkcs12
    ```
 
 2. 生成发布密钥库：
    ```bash
-   keytool -genkey -v -keystore app/src/main/keystore/release.keystore -alias releasekey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Release Key,O=Android,C=US" -noprompt
+   keytool -genkey -v -keystore app/src/main/keystore/release.keystore -storepass 123456 -alias release -keypass 123456 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Release,O=Android,C=US" -storetype pkcs12
    ```
 
-3. 配置[local.properties](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties)文件：
-   复制[local.properties.example](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties.example)文件为[local.properties](file:///c%3A/Users/Administrator/Downloads/2/2/local.properties)，并根据需要修改签名配置。
+### GitHub Actions中的密钥库生成
+GitHub Actions工作流已配置为在构建过程中自动生成密钥库，无需手动操作。
 
-更多详细信息请查看[GENERATE_KEYSTORE.md](file:///c%3A/Users/Administrator/Downloads/2/2/GENERATE_KEYSTORE.md)文件。
+更多详细信息请查看[GENERATE_KEYSTORE_INSTRUCTIONS.md](file:///c%3A/Users/Administrator/Downloads/2/2/GENERATE_KEYSTORE_INSTRUCTIONS.md)文件。
 
 ## 安装部署
 
